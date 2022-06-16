@@ -6,4 +6,3 @@ flask
 Flask-SocketIO
 gunicorn
 imutils
-opencv-python-headless
