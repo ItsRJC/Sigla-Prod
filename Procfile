@@ -1,1 +1,1 @@
-web: gunicorn sigla-tup.wsgi
+web: gunicorn wsgi
