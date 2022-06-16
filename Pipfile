@@ -13,6 +13,7 @@ flask-socketio = "*"
 pyopenssl = "*"
 gunicorn = "*"
 imutils = "*"
+opencv-python-headless = "*"
 
 [dev-packages]
 
