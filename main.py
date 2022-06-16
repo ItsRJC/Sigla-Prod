@@ -167,4 +167,4 @@ if __name__ == '__main__':
     t.start()
 
     app.run(host=args["ip"], port=args["port"], debug=True,
-        threaded=True, use_reloader=False, ssl_context='adhoc')
+        threaded=True, use_reloader=False)
