@@ -68,7 +68,7 @@ class GestureDetector:
         model.add(Dense(self.actions.shape[0], activation='softmax'))
         model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
         
-        model.load_weights('app/action_best.h5') 
+        model.load_weights('action_best.h5') 
         
         return model
         
