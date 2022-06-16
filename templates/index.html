@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sigla</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;1,300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div style="display:flex; flex-direction:row; justify-content:center;column-gap:30px;">
+  <div style="display:flex;flex-direction:column;align-items:center">
+    <img id="logo" src="/static/logo.png" style="height: 40%; width: 40%">
+    <h1>Sigla</h1>
+    <div class='video'>
+        <video autoplay="true" id="videoElement" style="height: 80%; width: 100%" ></video>
+    </div>
+  </div>
+  <div id="container">
+    <h1 id='detected-action'></h1>
+    
+  </div>
+
+</div>
+
+<style media="screen">
+h1, h2, h3, h4, blockquote, q, .maia-nav ul {
+  position: relative;
+  top:-8%;
+   font-family: 'Lato', sans-serif;
+   margin:0;
+}
+body{
+  background: rgb(109,207,247);
+background: linear-gradient(90deg, rgba(109,207,247,1) 0%, rgba(0,126,255,1) 0%, rgba(0,212,255,1) 80%, rgba(137,195,245,1) 100%);
+}
+#container{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 5%;
+}
+</style>
+
+<script>
+  var socket = io();
+
+  socket.on('connect', function(){
+      console.log("Connected...!", socket.connected)
+  });
+
+  const video = document.querySelector("#videoElement");
+
+
+  if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+      .then(function (stream) {
+          video.srcObject = stream;
+          video.play();
+      })
+      .catch(function (err0r) {
+          console.log(err0r)
+          console.log("Something went wrong!");
+      });
+  }
+
+  function capture(video, scaleFactor) {
+      if(scaleFactor == null){
+          scaleFactor = 1;
+      }
+      var w = video.videoWidth * scaleFactor;
+      var h = video.videoHeight * scaleFactor;
+      var canvas = document.createElement('canvas');
+          canvas.width  = w;
+          canvas.height = h;
+      var ctx = canvas.getContext('2d');
+          ctx.drawImage(video, 0, 0, w, h);
+      return canvas;
+  }
+
+  const FPS = 30;
+
+  setInterval(() => {
+        var type = "image/png"
+        var video_element = document.getElementById("videoElement")
+        var frame = capture(video_element, 1)
+      var data = frame.toDataURL(type);
+      data = data.replace('data:' + type + ';base64,', '');
+
+      socket.emit('image', data);
+  }, 10000/FPS);
+
+  socket.on('response_back', function(detected_action){
+      //const image_id = document.getElementById('image');
+      //image_id.src = image;
+
+      const detectedAction = document.getElementById('detected-action');
+
+      detectedAction.innerHTML = detected_action
+  });
+
+</script>
+</body>
+</html>
