@@ -1,9 +1,6 @@
-tensorflow==2.4.1
-tensorflow-cpu==2.4.1
+tensorflow-cpu
 opencv-python
 mediapipe
-# sklearn
-# matplotlib
 protobuf==3.20.0
 flask
 Flask-SocketIO

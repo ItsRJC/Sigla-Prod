@@ -5,11 +5,8 @@ from matplotlib import pyplot as plt
 import time
 import mediapipe as mp
 from scipy import stats
-from sklearn.model_selection import train_test_split
-from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
-from tensorflow.keras.callbacks import TensorBoard, ModelCheckpoint, Callback
 
 class GestureDetector:
 
