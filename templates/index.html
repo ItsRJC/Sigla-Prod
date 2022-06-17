@@ -26,11 +26,13 @@
         </div>
 
         <div class='video'>
-            <video autoplay="true" id="videoElement" style="height: 375px; width: 500px; border-radius: 10px" />
+            <video autoplay="true" id="videoElement" style="height: 375px; width: 500px; border-radius: 10px; display: none" ></video>
+            <img id="image" style="height: 375px; width: 500px; border-radius: 10px">
+            <!-- <video autoplay="true" id="videoElement" style="height: 375px; width: 500px; border-radius: 10px" /> -->
         </div>
 
         <div id="container" style="background-color: white; width: 400px; height: 60px; border-radius: 25px; align-items: center; margin:0">
-            <h1 id='detected-action' />
+            <h1 id='detected-action' ></h1>
         </div>
 
       </div>
@@ -107,14 +109,22 @@ body{
       socket.emit('image', data);
   }, 10000/FPS);
 
-  socket.on('response_back', function(detected_action){
-      //const image_id = document.getElementById('image');
-      //image_id.src = image;
+  socket.on('response_back', function(image){
+      const image_id = document.getElementById('image');
+      image_id.src = image;
 
-      const detectedAction = document.getElementById('detected-action');
+      //const detectedAction = document.getElementById('detected-action');
 
-      detectedAction.innerHTML = detected_action
+      //detectedAction.innerHTML = detected_action
   });
+
+  
+  socket.on('detected_action', function(detected_action){
+
+    const detectedAction = document.getElementById('detected-action');
+
+    detectedAction.innerHTML = detected_action
+});
 
 </script>
 </body>

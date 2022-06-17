@@ -65,7 +65,7 @@ def image(data_image):
         keypoints = md.extract_keypoints(results)
         md.sequence.append(keypoints)
         md.sequence = md.sequence[-30:]
-        print(len(md.sequence))
+        
         if len(md.sequence) == 30:
             res = model.predict(np.expand_dims(md.sequence, axis=0))[0]
             # print(actions[np.argmax(res)])
@@ -93,17 +93,18 @@ def image(data_image):
         
         
         # base64 encode
-        # imgencode = cv2.imencode('.jpg', image)[1]
+        imgencode = cv2.imencode('.jpg', image)[1]
 
-        # stringData = base64.b64encode(imgencode).decode('utf-8')
-        # b64_src = 'data:image/jpg;base64,'
-        # stringData = b64_src + stringData
+        stringData = base64.b64encode(imgencode).decode('utf-8')
+        b64_src = 'data:image/jpg;base64,'
+        stringData = b64_src + stringData
 
         # emit the frame back
         
         
         
-        emit('response_back', md.sentence)
+        emit('response_back',stringData)
+        emit('detected_action',md.sentence)
 
         
 
