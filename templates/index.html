@@ -7,41 +7,49 @@
   <title>Sigla</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;1,300&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;1,300&display=swap" rel="stylesheet">
 </head>
-<body>
-<div class="container">
-<div style="display:flex; flex-direction:row; justify-content:center;column-gap:30px;">
-  <div style="display:flex;flex-direction:column;align-items:center">
-    <img id="logo" src="/static/logo.png" style="height: 40%; width: 40%">
-    <div>
-      <p style="font-weight: bold; font-size: 50px; color: #010101">
-        <b>SigLa</b>
-      </p>
-    </div>
-    <div class='video'>
-        <video autoplay="true" id="videoElement" style="height: 100%; width: 100%; border-radius: 20px" />
-    </div>
-    <div id="container" style="background-color: white; width: 400px; height: 100px; border-radius: 25px; align-items: center">
-      <h1 id='detected-action' />
-      
-    </div>
-  </div>
-  
 
-</div>
+<body background="static/bg.png">
+  <div class="container">
+
+    <div style="display:flex; flex-direction:row; justify-content:center">
+
+      <div style="display:flex;flex-direction:column;align-items:center">
+      <img id="logo" src="/static/logo.png" style="height: 10%; width: 10%">
+
+        <div>
+            <p style="font-weight:bold; font-size: 30px; color: #000000; margin:0">
+              <b>SigLa</b>
+            </p>
+        </div>
+
+        <div class='video'>
+            <video autoplay="true" id="videoElement" style="height: 100%; width: 100%; border-radius: 10px" />
+        </div>
+
+        <div id="container" style="background-color: white; width: 400px; height: 60px; border-radius: 25px; align-items: center; margin:0">
+            <h1 id='detected-action' />
+        </div>
+
+      </div>
+
+    </div>
+    
+  </div>
 
 <style media="screen">
+  position: relative
 h1, h2, h3, h4, blockquote, q, .maia-nav ul {
   position: relative;
   top:-8%;
-   font-family: 'Lato', sans-serif;
-   margin:0;
+  font-family: 'Lato', sans-serif;
+  margin:0;
 }
 body{
-  background: rgb(109,207,247);
-background: linear-gradient(90deg, rgba(109,207,247,1) 0%, rgba(0,126,255,1) 0%, rgba(0,212,255,1) 80%, rgba(137,195,245,1) 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 #container{
   display:flex;
