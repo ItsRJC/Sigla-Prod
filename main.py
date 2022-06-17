@@ -65,6 +65,7 @@ def image(data_image):
         keypoints = md.extract_keypoints(results)
         md.sequence.append(keypoints)
         md.sequence = md.sequence[-30:]
+        print(len(md.sequence))
         if len(md.sequence) == 30:
             res = model.predict(np.expand_dims(md.sequence, axis=0))[0]
             # print(actions[np.argmax(res)])
@@ -99,7 +100,9 @@ def image(data_image):
         # stringData = b64_src + stringData
 
         # emit the frame back
-        print( md.sentence)
+        
+        
+        
         emit('response_back', md.sentence)
 
         
