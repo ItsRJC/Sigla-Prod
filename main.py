@@ -15,6 +15,8 @@ from ai import GestureDetector
 from flask_socketio import SocketIO, emit
 from io import StringIO
 import numpy as np
+import argparse
+import threading
 # import argparse
 
 # import os
@@ -97,6 +99,7 @@ def image(data_image):
         # stringData = b64_src + stringData
 
         # emit the frame back
+        print( md.sentence)
         emit('response_back', md.sentence)
 
         
@@ -153,4 +156,19 @@ def video_feed():
 
 # python main.py --ip 0.0.0.0 --port 8080 <- to run this web
 if __name__ == '__main__':
-    app.run()
+    
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-i", "--ip", type=str, required=True,
+        help="ip address of the device")
+    ap.add_argument("-o", "--port", type=int, required=True,
+        help="ephemeral port number of the server (1024 to 65535)")
+    ap.add_argument("-f", "--frame-count", type=int, default=32,
+        help="# of frames used to construct the background model")
+    args = vars(ap.parse_args())
+    
+    t = threading.Thread(target=detect_motion, args=(
+        args["frame_count"],))
+    t.daemon = True
+    t.start()
+
+    app.run(host=args["ip"], port=args["port"], debug=True, threaded=True, use_reloader=False, ssl_context='adhoc')
