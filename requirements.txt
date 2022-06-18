@@ -1,9 +1,9 @@
-tensorflow==2.4.1 
-tensorflow-gpu==2.4.1 
+tensorflow
+tensorflow-gpu
 opencv-python 
 mediapipe 
 sklearn
 matplotlib
-imutils==0.5.4
-Flask-SocketIO==5.2.0
-Flask==2.1.2
+imutils
+Flask-SocketIO
+Flask
